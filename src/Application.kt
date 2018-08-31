@@ -14,19 +14,27 @@ fun Application.main() {
     install(CallLogging)
 
     routing {
-        get("/") {
+        get("/hi") {
             call.respondHtml {
                 body {
                     p { +"Hi there!" }
                 }
             }
         }
-        get("/machine") {
+        get("/hi/{name}") {
+            call.respondHtml {
+                body {
+                    val name = call.parameters["name"]
+                    p { +"Hi $name!" }
+                }
+            }
+        }
+        get("/host") {
             call.respondHtml {
                 body {
                     val ip = InetAddress.getLocalHost()
                     val hostname = ip.hostName
-                    p { +"I am running on machine: $hostname" }
+                    p { +"I am running on host: $hostname" }
                 }
             }
         }
