@@ -1,3 +1,9 @@
+FROM gradle:jdk8 as builder
+
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle shadowJar
+
 FROM openjdk:8-jre-alpine
 
 ENV APPLICATION_USER ktor
@@ -7,8 +13,7 @@ RUN mkdir /app
 RUN chown -R $APPLICATION_USER /app
 
 USER $APPLICATION_USER
-
-COPY build/libs/ada-lovelace-application.jar /app/ada-lovelace-application.jar
+COPY --from=builder /home/gradle/src/build/libs/ada-lovelace-application.jar /app/ada-lovelace-application.jar
 
 WORKDIR /app
 
