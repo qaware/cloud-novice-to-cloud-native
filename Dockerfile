@@ -1,9 +1,24 @@
-FROM ocelotuproar/alpine-kotlin:latest
-EXPOSE 3000
-WORKDIR /src
+FROM openjdk:8-jre-alpine
 
-COPY . /src
-RUN gradle distZip && unzip /src/build/distributions/src.zip
+ENV APPLICATION_USER ktor
+RUN adduser -D -g '' $APPLICATION_USER
 
-CMD ["/src/src/bin/src"]
+RUN mkdir /app
+RUN chown -R $APPLICATION_USER /app
 
+USER $APPLICATION_USER
+
+COPY build/libs/ada-lovelace-application.jar /app/ada-lovelace-application.jar
+
+WORKDIR /app
+
+CMD ["java", "-server", \
+"-XX:+UnlockExperimentalVMOptions",\
+"-XX:+UseCGroupMemoryLimitForHeap",\
+"-XX:InitialRAMFraction=2",\
+"-XX:MinRAMFraction=2",\
+"-XX:MaxRAMFraction=2",\
+"-XX:+UseG1GC",\
+"-XX:MaxGCPauseMillis=100",\
+"-XX:+UseStringDeduplication",\
+"-jar", "ada-lovelace-application.jar"]
