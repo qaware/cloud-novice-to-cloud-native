@@ -7,6 +7,7 @@ import io.ktor.features.*
 import io.ktor.html.*
 import io.ktor.routing.*
 import kotlinx.html.*
+import java.net.InetAddress
 
 fun Application.main() {
     install(DefaultHeaders)
@@ -15,17 +16,30 @@ fun Application.main() {
     routing {
         get("/") {
             call.respondHtml {
-                head {
-                    title { +"Ktor: Docker" }
+                body {
+                    p { +"Hi there!" }
                 }
+            }
+        }
+        get("/machine") {
+            call.respondHtml {
+                body {
+                    val ip = InetAddress.getLocalHost()
+                    val hostname = ip.hostName
+                    p { +"I am running on machine: $hostname" }
+                }
+            }
+        }
+        get("/metrics") {
+            call.respondHtml {
                 body {
                     val runtime = Runtime.getRuntime()
-                    p { +"Hello from Ktor Netty engine running in Docker sample application" }
-                    p { +"Runtime.getRuntime().availableProcessors(): ${runtime.availableProcessors()}" }
-                    p { +"Runtime.getRuntime().freeMemory(): ${runtime.freeMemory()}" }
-                    p { +"Runtime.getRuntime().totalMemory(): ${runtime.totalMemory()}" }
-                    p { +"Runtime.getRuntime().maxMemory(): ${runtime.maxMemory()}" }
-                    p { +"System.getProperty(\"user.name\"): ${System.getProperty("user.name")}" }
+                    p { +"Just giving you some inside information on my runtime:" }
+                    p { +"Available Processors: ${runtime.availableProcessors()}" }
+                    p { +"Free Memory: ${runtime.freeMemory()}" }
+                    p { +"Total Memory: ${runtime.totalMemory()}" }
+                    p { +"Max Memory: ${runtime.maxMemory()}" }
+                    p { +"Internally used username: ${System.getProperty("user.name")}" }
                 }
             }
         }
