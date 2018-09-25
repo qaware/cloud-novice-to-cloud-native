@@ -9,14 +9,10 @@ FROM openjdk:8-jre
 ENV APPLICATION_USER ktor
 RUN useradd -ms /bin/bash $APPLICATION_USER
 
-RUN mkdir /app
-RUN chown -R $APPLICATION_USER /app
-
 USER $APPLICATION_USER
-COPY --from=builder /home/gradle/src/build/libs/ada-lovelace-application.jar /app/ada-lovelace-application.jar
+COPY --from=builder /home/gradle/src/build/libs/ada-lovelace-application.jar ada-lovelace-application.jar
 
 EXPOSE 3000
-WORKDIR /app
 
 CMD ["java", "-server", \
 "-XX:+UnlockExperimentalVMOptions",\
