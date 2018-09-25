@@ -1,4 +1,4 @@
-package  de.qaware.ada.lovelace
+package de.qaware.ada.lovelace
 
 import io.ktor.application.Application
 
