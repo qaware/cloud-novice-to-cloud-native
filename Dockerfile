@@ -2,12 +2,12 @@ FROM gradle:jdk8 as builder
 
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle shadowJar
+RUN gradle --no-daemon shadowJar
 
-FROM openjdk:8-jre-alpine
+FROM openjdk:8-jre
 
 ENV APPLICATION_USER ktor
-RUN adduser -D -g '' $APPLICATION_USER
+RUN useradd -ms /bin/bash $APPLICATION_USER
 
 RUN mkdir /app
 RUN chown -R $APPLICATION_USER /app
