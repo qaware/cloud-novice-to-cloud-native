@@ -15,6 +15,7 @@ RUN chown -R $APPLICATION_USER /app
 USER $APPLICATION_USER
 COPY --from=builder /home/gradle/src/build/libs/ada-lovelace-application.jar /app/ada-lovelace-application.jar
 
+EXPOSE 3000
 WORKDIR /app
 
 CMD ["java", "-server", \
