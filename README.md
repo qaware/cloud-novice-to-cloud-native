@@ -1,6 +1,6 @@
 # cloud-novice-to-cloud-native
 
-Workshop for the Ada Lovelace Festival 2018
+Demo application for a workshop at the Ada Lovelace Festival 2018 in Berlin, Germany.
 
 ## Building
 To build the Demo Ktor Application, run
@@ -31,3 +31,10 @@ the machine where it is run
 - `-it` instructs docker to allocate a terminal (tty) to pipe the stdout and 
 to respond to the interrupt key sequence
 `-rm` automatically removes the container when its exits
+
+## Acknowledgments
+
+- The Demo Ktor Application uses Ktor (see http://ktor.io/) and is inspired by a sample application
+  published by Ktor at https://github.com/ktorio/ktor-samples
+- The application is set up similar to Ben Hall's Java Kotlin Http Example application published at
+https://github.com/katacoda/java-kotlin-http-example  
