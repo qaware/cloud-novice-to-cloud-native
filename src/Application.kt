@@ -57,5 +57,12 @@ fun Application.main() {
                             "Available Processors" to runtime.availableProcessors(),
                             "Internally used username" to System.getProperty("user.name")))
         }
+        get("/health") {
+            call.respond(
+                    mapOf(
+                            "Status" to "OK"
+                    )
+            )
+        }
     }
 }
