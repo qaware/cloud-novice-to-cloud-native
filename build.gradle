@@ -2,12 +2,12 @@ group 'QAware'
 version '1.0'
 
 buildscript {
-    ext.kotlin_version = '1.2.61'
-    ext.ktor_version = '0.9.4'
+    ext.kotlin_version = '1.2.70'
+    ext.ktor_version = '0.9.5'
     ext.logback_version = '1.2.1'
 
     repositories {
-        jcenter()
+        mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
@@ -40,10 +40,9 @@ compileTestKotlin {
 kotlin.experimental.coroutines = 'enable'
 
 repositories {
+    mavenCentral()
     jcenter()
-    maven {
-        url "https://dl.bintray.com/kotlin/ktor"
-    }
+    maven { url "https://dl.bintray.com/kotlin/ktor" }
 }
 
 dependencies {
